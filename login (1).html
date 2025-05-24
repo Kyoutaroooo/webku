@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login ke Dimsum Kasim</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    /* --- Gaya Login --- */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9fafc;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .login-container {
+      max-width: 400px;
+      margin: 100px auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .login-container h2 {
+      text-align: center;
+      color: #6b3e1d;
+      margin-bottom: 1.5rem;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(90deg, #d2691e, #ffa500);
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .login-container button:hover {
+      background: linear-gradient(90deg, #c55a1e, #e69500);
+    }
+    .error-message {
+      color: red;
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* --- Konten Web --- */
+    #main-content {
+      display: none;
+    }
+
+    header {
+      background: linear-gradient(90deg, #d2691e, #ffa500);
+      padding: 1.5rem 1rem;
+      box-shadow: 0 3px 12px rgba(210,105,30,0.3);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-own {
+      font-weight: 900;
+      font-size: 2.2rem;
+      letter-spacing: 0.1em;
+      background: linear-gradient(45deg, #ff6f00, #ffab40);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+    }
+    .logo-own .letter { padding: 0 0.12em; }
+    .logo-own .letter.o {
+      color: #ffa500;
+      text-shadow: 2px 2px 4px rgba(255, 165, 0, 0.6);
+      transform: rotate(-10deg);
+    }
+    .logo-own .letter.w {
+      color: #ff6f00;
+      text-shadow: 1px 1px 3px rgba(255, 111, 0, 0.7);
+      transform: rotate(5deg);
+    }
+    .logo-own .letter.n {
+      color: #ff8f00;
+      text-shadow: 2px 1px 3px rgba(255, 143, 0, 0.6);
+    }
+    .logo-own .flame {
+      position: absolute;
+      top: -8px;
+      left: 24%;
+      width: 15px;
+      height: 24px;
+      background: radial-gradient(circle at bottom center, #ffab40, #ff6f00);
+      clip-path: polygon(50% 0%, 65% 20%, 55% 40%, 65% 60%, 50% 80%, 35% 60%, 45% 40%, 35% 20%);
+      filter: drop-shadow(0 0 4px #ff8f00);
+      animation: flicker 1.5s infinite alternate;
+      z-index: -1;
+    }
+    @keyframes flicker {
+      0% { filter: drop-shadow(0 0 6px #ff8f00) drop-shadow(0 0 4px #ffab40); }
+      100% { filter: drop-shadow(0 0 10px #ff6f00) drop-shadow(0 0 6px #ffa500); }
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    section {
+      max-width: 1100px;
+      margin: 4rem auto;
+      padding: 0 1rem;
+    }
+    .hero {
+      text-align: center;
+      padding: 6rem 1rem 4rem;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      color: #6b3e1d;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: #555;
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero button {
+      background: linear-gradient(90deg, #d2691e, #ffa500);
+      border: none;
+      border-radius: 50px;
+      padding: 1rem 3.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      font-weight: 300;
+      font-size: 0.9rem;
+      color: #999;
+      margin: 2rem 1rem 3rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login Form -->
+<div id="login-form" class="login-container">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" required>
+  <input type="password" id="password" placeholder="Password" required>
+  <button onclick="login()">Masuk</button>
+  <div id="error-message" class="error-message">Username atau Password salah!</div>
+</div>
+
+<!-- Main Content -->
+<div id="main-content">
+  <header>
+    <nav>
+      <div class="logo-own">
+        <span class="letter o">O<span class="flame"></span></span>
+        <span class="letter w">W</span>
+        <span class="letter n">N</span>
+      </div>
+      <div>
+        <a href="#hero">Beranda</a>
+        <a href="#features">Keistimewaan</a>
+        <a href="#contact">Profil</a>
+      </div>
+    </nav>
+  </header>
+
+  <section id="hero" class="hero">
+    <h1>Selamat Datang di Dimsum Kasim</h1>
+    <p>Temukan rasa asli dimsum lezat yang menggoda selera. Nikmati cita rasa spesial kami!</p>
+    <button onclick="alert('Terima kasih sudah memulai perjalanan rasa!')">Mulai Pesan</button>
+  </section>
+
+  <footer>
+    &copy; 2024 Dimsum Kasim. Semua hak dilindungi.
+  </footer>
+</div>
+
+<script>
+  function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const error = document.getElementById("error-message");
+
+    if (username === "kyoutaro" && password === "kegabutan300") {
+      document.getElementById("login-form").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    } else {
+      error.style.display = "block";
+    }
+  }
+</script>
+</body>
+</html>
